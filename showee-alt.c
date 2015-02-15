@@ -1,4 +1,6 @@
 #include "fonctions-sup.h"
+// Algorithme de résolution rapide avec affichage.
+// Radical identique à celui de hidee-alt.c.
 int main(void){srand(time(NULL));grid g=new_grid();
   show_grid(g);bool hE=0;int i,j;i=availMoves(g);
   while(!game_over(g)){j=i%4;

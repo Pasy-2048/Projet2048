@@ -1,5 +1,7 @@
 #include "graphical-grid.h"
-
+// grid.c, mais pour une utilisation par la SDL.
+// Ultimement, elles devraient faire appel aux fonctions de grid.h.
+// À travailler.
 struct piece_s{
   tile tIle;
   SDL_Surface* sUrface;

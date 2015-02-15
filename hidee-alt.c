@@ -1,4 +1,9 @@
 #include "fonctions-sup.h"
+// Algorithme de résolution rapide sans affichage.
+// Score autour de 4k.
+// Termine en .1 secondes en moyenne.
+// Un algorithme plus complexe est à préparer.
+// Avec gestion des heuristiques de préférence.
 int main(void){srand(time(NULL));grid g=new_grid();
   bool hE=0;int i,j;i=availMoves(g);
   while(!game_over(g)){j=i%4;

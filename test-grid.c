@@ -1,4 +1,9 @@
 #include "grid.h"
+// Algorithme simple de résolution automatique.
+// L'affichage dépend de play(grid,dir);.
+// Score autour de 1.5k.
+// Termine en <.1 seconde.
+// Parfait pour les tests btw.
 int main()
 {
     srand(time(NULL));

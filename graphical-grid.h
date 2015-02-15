@@ -2,6 +2,7 @@
 #define GRAPHICAL_GRID_H_
 #include "grid.h"
 #include <SDL.h>
+// c.f. graphical-grid.c.
 
 typedef struct gGrid_s *gGrid;
 

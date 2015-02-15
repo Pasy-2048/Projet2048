@@ -1,6 +1,7 @@
 #ifndef FUNC_SUP_H_
 #define FUNC_SUP_H_
 #include "grid.h"
+// c.f. fonctions-sup.c.
 
 int availMoves(grid g);
 
