@@ -49,7 +49,6 @@ grid new_grid ()
                 set_tile(g,i,j,0);
             }
         }
-    //add_tile(g);add_tile(g);
     return g;
 }
 
@@ -156,39 +155,35 @@ unsigned long int grid_score (grid g)
 // Purpose: Fonction qui permet de savoir si on peut bouger vers une direction
 // realisation : Pierre Louis, Alexis Richard
 //------------------------------------------------------------------------------
-bool can_move (grid g, dir d)
-{
-    int i,j,k;
-    /*if(d==NOP)
-        {
-            return false;
-        }*/
-    bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);
-    tile Tj,Tk;
-    for(i=0;i<GRID_SIDE;i++)
-    {
-        for(j=(GRID_SIDE-1)*(1-sup);j*(2*sup-1)<(GRID_SIDE-1)*sup;j+=(2*sup-1))
-        {
-            Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));
-            if(Tj!=0)
-            {
-                k=j+2*sup-1;
-                Tk=get_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni));
-                if(Tk==0||Tk==Tj)
-                    {
-                        return true;
-                    }
+bool can_move (grid g, dir d){
+    int i,j,k;                                                                          //i,j compteurs, k "case suivante"
+    bool direction = ((d==LEFT||d==RIGHT)?1:0) , sup=((d==RIGHT||d==DOWN)?1:0);             //"direction" determine la direction du mouvement (s'il faut parcourir les lignes ou les colonnes)
+                                                                                        //sup est le sens dudit mouvement (s'il faut partir du début ou de la fin des lignes/colonnes concernees)
+    tile Tj,Tk;                                                                         //Tj à comparer à Tk
+    for(i=0;i<GRID_SIDE;i++)                                                            //que l'on prenne les lignes ou les colonnes, on part de la première, et on va à la dernière....
+    {                                                                                   
+        for(j=(GRID_SIDE-1)*(1-sup) ; j*(2*sup-1)<(GRID_SIDE-1)*sup ; j+=(2*sup-1))         //on se sert de sup pour faire aller j du début à la fin ou inversement.
+        {                                                                               
+            Tj = get_tile(g , j*direction+i*(1-direction) , i*direction+j*(1-direction));   //on se sert de "direction" pour déterminer sur quelle case on est exactement, et on la stocke.
+            if(Tj!=0)                                                                       //Si ce n'est pas une case 'nulle'
+            {                                                                           
+                k = j+2*sup-1;                                                              //on se sert de k
+                Tk=get_tile(g , k*direction+i*(1-direction) , i*direction+k*(1-direction)); //pour prendre la case 'suivante'
+                if(Tk==0 || Tk==Tj)                                                         //si elle est nulle, Tj pourras y aller. Si elle est égale à Tj, elles pourront fusionner.
+                {                                                    
+                    return true;                                                            //Donc le mouvement a bien un sens.
+                }
             }
         }
     }
-    return false;
+    return false;                                                                       //Et sinon, on renvoie false.
 }
 
 //------------------------------------------------------------------------------
 // param: grid : grille
 // Return:  rien
 // Purpose: Fonction qui permet de savoir si la partie est fini
-// realisation : Simon Lejeune, Yannis Baltus
+// realisation : Simon Lejeune, Yannis Baltus, Pierre Louis
 //------------------------------------------------------------------------------
 
 bool game_over (grid g)
@@ -203,10 +198,9 @@ bool game_over (grid g)
     {
         for(j=0;j<GRID_SIDE;j++)
         {
-            for(k=((j!=GRID_SIDE-1)?0:1);k<=((i!=GRID_SIDE-1)?1:0);k++)
+            for(k=((j!=GRID_SIDE-1)?0:1) ; k<=((i!=GRID_SIDE-1)?1:0) ; k++)
             {
-                //printf("i:%d j:%d k:%d\n",i,j,k);
-                if(get_tile(g,i+k,j+1-k)==get_tile(g,i,j))
+                if(get_tile(g , i+k , j+1-k) == get_tile(g , i , j))
                 {
                     return false;
                 }
@@ -224,77 +218,64 @@ bool game_over (grid g)
 // Purpose: Fonction qui execute les mouvements dans une direction.
 // realisation : Alexis Richard Pierre Louis
 //------------------------------------------------------------------------------
-void do_move (grid g, dir d)
-{
-    /*if(d==NOP)
-        {
-            return;
-        }*/
-    bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0),continuer;
-    tile Tj,Tk;
-    int i,j,k,jmax=(GRID_SIDE-1)*(1-sup),kmax=jmax-(2*sup)+1;
-    //printf("jmax:%d kmax:%d\n",jmax,kmax);
-    for(i=0;i<GRID_SIDE;i++)
-    {
-        continuer=1;
-        j=(GRID_SIDE-1)*sup;
-        //printf("i:%d\n",i);
-        while(continuer==1&&j*(1-2*sup)<jmax)
-        {
-            Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));
-            //printf("j:%d Tj:%u\n",j,Tj);
-            k=j;
-            if(Tj==0)
-            {
-                continuer=0;
-                for(k=k+1-2*sup;k*(1-2*sup)<kmax*(1-2*sup);k+=(1-2*sup))
-                {
-                    Tk=get_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni));
-                    //printf("k:%d Tk:%u\n",k,Tk);
-                    if(Tk!=0)
-                    {
-                        if(k!=jmax)
-                        {
-                            continuer=1;
+void do_move (grid g, dir d){
+    bool dire=((d==LEFT||d==RIGHT)?1:0) , sup=((d==RIGHT||d==DOWN)?1:0) , continuer;   //continuer déterminera si c'est la peine de continuer à bosser sur la Li/Co séléctionnée.
+    tile Tj,Tk;                                                                    //c.f. can_move(...);
+    int i,j,k;
+    int jmax=(GRID_SIDE-1)*(1-sup);                                                //jmax et kmax sont précalculés
+    int kmax=jmax-(2*sup)+1;                                                       //pour simplifier l'écriture du code. Leur utilisation sera détaillée.
+    for(i=0 ; i<GRID_SIDE ; i++){                                                      //que l'on prenne lignes ou colonnes, blah blah blah..
+        continuer=1;                                                               //on initialise continuer à chaque Li/Co.
+        j= (GRID_SIDE-1)*sup;                                                       //on selectionne la 'première' case de la Li/Co, selon sup.
+        while(continuer==1&&j*(1-2*sup) < jmax){                                     //tant que c'est la peine de bosser sur la lico...;
+            Tj=get_tile(g , j*dire+i*(1-dire) , i*dire+j*(1-dire));                    //on prend la case du tour
+            k=j;                                                                   //on initialise k (pas besoin de checker les cases AVANT Tj).
+            if(Tj==0)                                                              //si la case actuelle est nulle, on va voir s'il y en a une non-nulle plus loin dans la lico pour la mettre à sa place:
+            {                                                             
+                continuer=0;                                                       //D'ailleurs si on en trouve pas, on passe à la lico suivante.
+                for(k=k+1-2*sup ; k*(1-2*sup)<kmax*(1-2*sup) ; k+=(1-2*sup)){          //donc, pour chacune des cases suivantes;
+                    Tk = get_tile(g , k*dire+i*(1-dire) , i*dire+k*(1-dire));            //Déjà on prend la case en question, c'est plus pratique..
+                    if(Tk!=0)                                                       //si elle est pas nulle
+                    {                                                     
+                        if(k!=jmax)                                                 //(si c'est la dernière de la colonne c'est quand même la dernière chose qu'on feras)
+                        {                                               
+                            continuer=1;                                           //(mais si il reste des cases derrière, on les checkeras juste pour être sur.)
                         }
-                        set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);
-                        set_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni),Tk);
-                        break;
+                        set_tile(g , k*dire+i*(1-dire) , i*dire+k*(1-dire) , 0);         //Comme elle va se mettre sur Tj, on la met à zéro (pour pas qu'il reste un clone sur place)
+                        set_tile(g , j*dire+i*(1-dire) , i*dire+j*(1-dire) , Tk);        //Et Tj, qui était nulle a une toute nouvelle valeur, yippee
+                        break;                                                     //Du coup plus besoin de lui en chercher une nouvelle
                     }
                 }
-                Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));
-                //printf("New Tj:%u\n",Tj);
+                Tj=get_tile(g , j*dire+i*(1-dire) , i*dire+j*(1-dire));                 //On prend sa nouvelle valeur, si nouvelle valeur il y a.
             }
-            if(Tj!=0&&continuer==1)
-            {
-                continuer=0;
-                for(k=k+1-2*sup;k*(1-2*sup)<kmax*(1-2*sup);k+=(1-2*sup))
-                {
-                    Tk=get_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni));
-                    //printf("k:%d Tk:%u\n",k,Tk);
-                    if(Tk!=0)
-                    {
-                        if(Tk==Tj)
-                        {
-                            continuer=1;
-                            set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);
-                            set_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni),Tj+1);
-                            set_free_tiles(g,get_free_tiles(g)+1);
-                            set_score(g,grid_score(g)+valeur(2,Tj));
-                            //printf("fusion %d/ %d~%d %u\n",i,j,k,Tj+1);
+            if(Tj!=0 && continuer==1)                                               //Si Tj avait déjà une valeur non nulle, ou si on lui en a trouvé une nouvelle
+            {                                                
+                continuer=0;                                                        //(Là encore, si il n'y a plus rien sur quoi bosser plus loin sur la lico, on passe à la suivante.
+                for(k=k+1-2*sup ; k*(1-2*sup)<kmax*(1-2*sup) ; k+=(1-2*sup)){           //Donc très important on a pas reset le k, c'est aussi pour ça qu'on l'initialise en dehors du if(Tj==0).
+                    Tk=get_tile(g , k*dire+i*(1-dire) , i*dire+k*(1-dire));             //case suivante,donc. On prend sa valeur. (toutes celles entre Tj et Tk sont à 0 btw)
+                    if(Tk!=0)                                                       //Si celle-là est pas à zéro
+                    {                                                      
+                        if(k!=jmax)                                                 //Même chose, s'il reste d'autres case derrière on referas un tour.
+                        {                                                
+                            continuer=1;                                            //voila, nouveau tour en approche
                         }
-                        if(Tk!=Tj)
-                        {
-                            continuer=1;
-                            set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);
-                            set_tile(g,(j+1-2*sup)*loni+i*(1-loni),i*loni+(j+1-2*sup)*(1-loni),Tk);
-                            //printf("colle %d/ %d->%d %u\n",i,k,j+1-2*sup,Tk);
+                        if(Tk==Tj)                                                  //Si les deux cases sont égales, on les fusionne;
+                        {                                                 
+                            set_tile(g , k*dire+i*(1-dire) , i*dire+k*(1-dire) , 0);      //celle qui 'arrive' passe à 0
+                            set_tile(g , j*dire+i*(1-dire) , i*dire+j*(1-dire) , Tj+1);   //L'autre gagne un niveau
+                            set_free_tiles(g , get_free_tiles(g)+1);                  //Et du coup ça libère une case (une case libre en plus!!)
+                            set_score(g , get_score(g)+valeur(2,Tj));                 //Et on update le score aussi
                         }
-                        break;
+                        if(Tk!=Tj)                                                  //Par contre si elles sont pas pareil, on va 'coller' Tk à Tj
+                        {                                                 
+                            set_tile(g , k*dire+i*(1-dire) , i*dire+k*(1-dire) , 0);      //Donc la case à k passe à 0
+                            set_tile(g , (j+1-2*sup)*dire+i*(1-dire) , i*dire+(j+1-2*sup)*(1-dire) , Tk); //Et celle juste après Tj prend sa valeur (à Tk). Notez que l'ordre des affectations est important dans le cas ou Tk pourrait être juste après Tj.
+                        }
+                        break;                                                      //Et qu'on aie fusionné ou collé, on ne bosseras plus sur ce Tj. (pas 2 fusions par tour)
                     }
                 }
             }
-            j+=1-2*sup;
+            j+=1-2*sup;                                                             //Et donc on passe à la case suivante, pour lui chercher une nouvelle valeur, une fusion, ou un voisin.
         }
     }
 }
@@ -346,21 +327,16 @@ void add_tile (grid g)
 
 void play(grid g,dir d)
 {
-    //show_grid(g);
-    //if(d!=NOP)
-        //{
-            if(can_move(g,d))
-                {
-                    do_move(g,d);add_tile(g);
-                }
-        //}
-        //show_grid(g);
+      if(can_move(g,d))
+        {
+            do_move(g,d);
+            add_tile(g);
+        }
         if(game_over(g))
         {
+            show_grid(g);
             printf("Game Over\n");
-        }/*else{
-            printf("Deplacements possibles:%s%s%s%s.\n",(can_move(g,LEFT))?" LEFT":"",(can_move(g,RIGHT))?" RIGHT":"",(can_move(g,UP))?" UP":"",(can_move(g,DOWN))?" DOWN":"");
-        }*/
+        }
 }
 
 //------------------------------------------------------------------------------
@@ -370,7 +346,7 @@ void play(grid g,dir d)
 // realisation : Alexis Richard
 //------------------------------------------------------------------------------
 
-/*void show_grid(grid g)
+void show_grid(grid g)
 {
     int i,j;
     for(i=0;i<GRID_SIDE;i++)
@@ -403,7 +379,7 @@ void play(grid g,dir d)
                 printf("\n\n");
             }
     printf("Free tiles: %d. Score: %lu\n",get_free_tiles(g),grid_score(g));
-}*/
+}
 
 //------------------------------------------------------------------------------
 // param: a :
@@ -413,7 +389,6 @@ void play(grid g,dir d)
 // realisation : Alexis Richard
 //------------------------------------------------------------------------------
 
-/*
 unsigned int valeur(int a, unsigned int b)
 {
     if(b==0)
@@ -430,7 +405,7 @@ unsigned int valeur(int a, unsigned int b)
         }
     return a*valeur(a,b-1);
 }
-*/
+
 
 
 /******************************************************************************/
