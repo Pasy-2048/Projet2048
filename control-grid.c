@@ -1,4 +1,7 @@
 #include "grid.h"
+#include "time.h"
+#include "stdio.h"
+#include "stdlib.h"
 // Fichier terminé.
 // Usage: Lance un 2048 dans le repertoire, controllable par U(p),D(own),L(eft),R(ight) et S(top).
 // À l'envoi de S(top), le programme joue automatiquement la grille jusqu'au game over
