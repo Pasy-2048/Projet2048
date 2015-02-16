@@ -13,10 +13,14 @@ int main()
     add_tile(g);
     add_tile(g);
     play(g,LEFT);
-    /*
+    /****************************/
+    /* permet de jouer */
+    /****************************/
+    /* 
     bool continuer=1;
     char ordre[11];
     while(!game_over(g)&&continuer==1){
+        show_grid(g)
         fgets(ordre,10,stdin);
         switch(ordre[0]){
         case 'L':
@@ -36,6 +40,9 @@ int main()
             break;
         }
     }*/
+    /**********************/
+    /* Partie rapide auto */
+    /*********************/
     while(!game_over(g)){
         if(can_move(g,RIGHT)){
             play(g,RIGHT);
