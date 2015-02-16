@@ -5,6 +5,6 @@
 
 int availMoves(grid g);
 
-void do_turn(grid g, dir d);
+void do_turn(grid g,dir d);
 
 #endif

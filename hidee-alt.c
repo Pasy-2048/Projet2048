@@ -1,4 +1,7 @@
 #include "fonctions-sup.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 // Algorithme de résolution rapide sans affichage.
 // Score autour de 4k.
 // Termine en .1 secondes en moyenne.
@@ -14,4 +17,5 @@ int main(void){srand(time(NULL));grid g=new_grid();
     i=availMoves(g);j=i/4;
     if(j!=0){if(j>=2){do_turn(g,UP);}
       else if(i==4){do_turn(g,DOWN);}}}
-  show_grid(g);delete_grid(g);return 0;}
+	  play(g,UP);
+  delete_grid(g);return 0;}

@@ -5,17 +5,18 @@
 
 
 #include "grid.h"
+#include "fonctions-sup.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
 #include <string.h>
 
-int get_free_tiles (grid g);
+void set_score (grid g, unsigned long int score);
+int get_free_tiles(grid g);
 void set_free_tiles (grid g, int x);
 void show_grid(grid g);
 unsigned int valeur(int a, unsigned int b);
-void set_score (grid g, unsigned long int score);
 
 struct grid_s
 {
@@ -49,6 +50,8 @@ grid new_grid ()
                 set_tile(g,i,j,0);
             }
         }
+	add_tile(g);add_tile(g);//QUI A ENLEVE ÇA????
+	show_grid(g);
     return g;
 }
 
@@ -104,11 +107,6 @@ void copy_grid (grid src, grid dst)
 /*  realisation : Simon Lejeune, Yannis Baltus, Pierre Louis, Alexis Richard  */
 /******************************************************************************/
 
-void set_score (grid g, unsigned long int score)
-{
-    g->score=score;
-}
-
 tile get_tile (grid g, int x, int y)
 {
     return g->matrice[x][y];
@@ -119,14 +117,19 @@ void set_tile (grid g, int x, int y, tile t)
     g->matrice[x][y]=t;
 }
 
+void set_score(grid g, unsigned long int score)
+{
+    g->score=score;
+}
+
 // permet de savoir combien tuile vide il y a
-int get_free_tiles (grid g)
+int get_free_tiles(grid g)
 {
     return g->nb_free_tiles;
 }
 
 // permet de mettre une nouvelle valeur dans une tuile vide
-void set_free_tiles (grid g, int x)
+void set_free_tiles(grid g, int x)
 {
     g->nb_free_tiles=x;
 }
@@ -265,7 +268,6 @@ void do_move (grid g, dir d){
                     }
                 }
             }
-<<<<<<< Updated upstream
             if(Tj!=0&&continuer==1){																//On va chercher s'il y a après Tj une case de valeur, soit pour la fusionner avec Tj, soit pour la rapprocher.
                 continuer=0;
                 for(k=k+1-2*sup;k*(1-2*sup)<kmax*(1-2*sup);k+=(1-2*sup)){
@@ -287,26 +289,7 @@ void do_move (grid g, dir d){
                             set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);						//On enlève l'autre case.
                             set_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni),Tj+1);					//On augmente le niveau de Tj.
                             set_free_tiles(g,get_free_tiles(g)+1);									//Ca libère une case.
-                            set_score(g,get_score(g)+valeur(2,Tj));									//Et ça donne des points.
-=======
-            if(Tj!=0 && continuer==1)                                               //Si Tj avait déjà une valeur non nulle, ou si on lui en a trouvé une nouvelle
-            {                                                
-                continuer=0;                                                        //(Là encore, si il n'y a plus rien sur quoi bosser plus loin sur la lico, on passe à la suivante.
-                for(k=k+1-2*sup ; k*(1-2*sup)<kmax*(1-2*sup) ; k+=(1-2*sup)){           //Donc très important on a pas reset le k, c'est aussi pour ça qu'on l'initialise en dehors du if(Tj==0).
-                    Tk=get_tile(g , k*dire+i*(1-dire) , i*dire+k*(1-dire));             //case suivante,donc. On prend sa valeur. (toutes celles entre Tj et Tk sont à 0 btw)
-                    if(Tk!=0)                                                       //Si celle-là est pas à zéro
-                    {                                                      
-                        if(k!=jmax)                                                 //Même chose, s'il reste d'autres case derrière on referas un tour.
-                        {                                                
-                            continuer=1;                                            //voila, nouveau tour en approche
-                        }
-                        if(Tk==Tj)                                                  //Si les deux cases sont égales, on les fusionne;
-                        {                                                 
-                            set_tile(g , k*dire+i*(1-dire) , i*dire+k*(1-dire) , 0);      //celle qui 'arrive' passe à 0
-                            set_tile(g , j*dire+i*(1-dire) , i*dire+j*(1-dire) , Tj+1);   //L'autre gagne un niveau
-                            set_free_tiles(g , get_free_tiles(g)+1);                  //Et du coup ça libère une case (une case libre en plus!!)
-                            set_score(g , grid_score(g)+valeur(2,Tj));                 //Et on update le score aussi
->>>>>>> Stashed changes
+                            set_score(g,grid_score(g)+valeur(2,Tj));									//Et ça donne des points.
                         }
                         if(Tk!=Tj){																	//Sinon, on la rapproche de Tj:
                             set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);						//On l'enlève.
@@ -376,9 +359,9 @@ void play(grid g,dir d)
 		do_move(g,d);
 		add_tile(g);
 	}
+	show_grid(g);
 	if(game_over(g))
 	{
-		show_grid(g);
 		printf("Game Over\n");
 	}
 }
@@ -390,7 +373,7 @@ void play(grid g,dir d)
 // realisation : Alexis Richard
 //------------------------------------------------------------------------------
 
-/*void show_grid(grid g)
+void show_grid(grid g)
 {
     int i,j;
     for(i=0;i<GRID_SIDE;i++)
@@ -450,7 +433,6 @@ unsigned int valeur(int a, unsigned int b)
 	}
     return a*valeur(a,b-1);
 }
-*/
 
 
 /******************************************************************************/
