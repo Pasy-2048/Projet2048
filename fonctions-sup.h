@@ -7,4 +7,8 @@ int availMoves(grid g);
 
 void do_turn(grid g,dir d);
 
+void show_grid(grid g);
+
+unsigned int valeur(int a, unsigned int b);
+
 #endif

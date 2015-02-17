@@ -105,7 +105,7 @@ void copy_grid (grid src, grid dst)
 
 /******************************************************************************/
 /*                              Accesseurs                                    */
-/*  realisation : Simon Lejeune, Yannis Baltus, Pierre Martin, Alexis Richard  */
+/*  realisation : Simon Lejeune, Yannis Baltus, Pierre Louis, Alexis Richard  */
 /******************************************************************************/
 
 tile get_tile (grid g, int x, int y)
@@ -196,8 +196,7 @@ bool can_move(grid g, dir d)
 
 /*     int i,j,k;
 
-    bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);
-    tile Tj,Tk;
+    bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);    tile Tj,Tk;
     for(i=0;i<GRID_SIDE;i++)
     {
         for(j=(GRID_SIDE-1)*(1-sup);j*(2*sup-1)<(GRID_SIDE-1)*sup;j+=(2*sup-1))
@@ -244,7 +243,7 @@ static tile next(grid g, int x, int y, dir d)
 // param: grid : grille
 // Return:  rien
 // Purpose: Fonction qui permet de savoir si la partie est finie
-// realisation : Simon Lejeune, Yannis Baltus, Pierre Martin
+// realisation : Simon Lejeune, Yannis Baltus, Pierre Louis
 //------------------------------------------------------------------------------
 
 bool game_over (grid g)
@@ -440,7 +439,7 @@ void play(grid g,dir d)
 
 /******************************************************************************/
 /*                               Relecture et commentaire :                   */
-/*                             Simon Lejeune, Alexis Richard                  */
+/*                             Simon Lejeune, Alexis Richard    */
 /******************************************************************************/
 
 
