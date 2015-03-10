@@ -14,8 +14,6 @@
 #include "fonctions-sup.h"
 
 
-
->>>>>>> 17/02_Compil
 void set_score(grid g, unsigned long int score);
 int get_free_tiles(grid g);
 void set_free_tiles (grid g, int x);
@@ -290,11 +288,10 @@ bool game_over (grid g)
 // Purpose: Fonction qui execute les mouvements dans une direction.
 // realisation : Alexis Richard Pierre Martin
 //------------------------------------------------------------------------------
-void do_move (grid g, dir d){
+/*void do_move (grid g, dir d){
     bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0),continuer;// Loni représente la verticalité (ou non) du mouvement. Sup détermine s'il faudras partir du début ou de la fin des colonnes parcourues.
     tile Tj,Tk;
     int i,j,k,jmax=(GRID_SIDE-1)*(1-sup),kmax=jmax-(2*sup)+1;
-	/*
 	Equivalent à:
 	int i;
 	int j;
@@ -306,16 +303,21 @@ void do_move (grid g, dir d){
 		int jmax=GRID_SIDE-1;
 		int kmax=GRID_SIDE;
 	}
-															//Les 'maximums' ne sont atteints ni par j, ni par k; aucun risque d'erreur.
-	*/
+    //Les 'maximums' ne sont atteints ni par j, ni par k; aucun risque d'erreur.
     for(i=0;i<GRID_SIDE;i++){
         continuer=1;
-        j=(GRID_SIDE-1)*sup;											//On initialise j à la 'première' case de la ligne/colonne, selon le sens dans lequel elle doit être parcourue (fourni par sup).
-        while(continuer==1&&j*(1-2*sup)<jmax){	       	                //On continue tant qu'il reste des cases non vérifiées (potentiellement non nulles) dans la ligne/colonne actuellement parcourue, et qu'on est pas arrivé à la fin de ladite li/co.
-            Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));		 	//Ici, loni determine le role de i et j. Par exemple, pour un mouvement vertical, i est l'absisse et j l'ordonnée, et c'est l'inverse pour un mouvement horizontal.
-=======
+        //On initialise j à la 'première' case de la ligne/colonne, selon le sens dans lequel elle doit être parcourue (fourni par sup).
+        j=(GRID_SIDE-1)*sup;
+        //On continue tant qu'il reste des cases non vérifiées (potentiellement non nulles) dans la ligne/colonne actuellement parcourue, et qu'on est pas arrivé à la fin de ladite li/co.
+        while(continuer==1&&j*(1-2*sup)<jmax){
+            //Ici, loni determine le role de i et j. Par exemple, pour un mouvement vertical, i est l'absisse et j l'ordonnée, et c'est l'inverse pour un mouvement horizontal.
+            Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));
+
+
 // Realisation : Alexis Richard Pierre Martin
 //------------------------------------------------------------------------------
+*/
+            
 void do_move (grid g, dir d){
 // Loni représente la verticalité (ou non) du mouvement. 
 // Sup détermine s'il faudras partir du début ou de la fin des colonnes parcourues.
@@ -361,7 +363,8 @@ void do_move (grid g, dir d){
                 }
             }
             //On va chercher s'il y a après Tj une case de valeur, soit pour la fusionner avec Tj, soit pour la rapprocher.
-            if(Tj!=0&&continuer==1){																                continuer=0;
+            if(Tj!=0&&continuer==1){																                
+                continuer=0;
                 for(k=k+1-2*sup;k*(1-2*sup)<kmax*(1-2*sup);k+=(1-2*sup)){
 				/*
 				Equivalent à:
@@ -449,7 +452,7 @@ void add_tile (grid g)
         }
     }
     // 1/10 d'ajouter un 4, 9/10 d'ajouter un 2.
-    set_tile(g, ln, cl,((rand()%10)<1)?4:2);
+    set_tile(g, ln, cl,((rand()%10)<1)?2:1);
     set_free_tiles(g, get_free_tiles(g)-1);
 }
 

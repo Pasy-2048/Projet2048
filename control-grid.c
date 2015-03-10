@@ -14,23 +14,31 @@ int main()
     srand(time(NULL));
     grid g=new_grid();
     bool continuer=1;
-    char ordre[2];
+    char ordre;
+    printf("Entrez L,R,U,D pour contrôler\n");
+    printf("Entrez S pour terminer automatiquement le jeu\n");
     while(!game_over(g) && continuer==1){
       
-      fgets(ordre, 2, stdin);
-      switch(ordre[0]){
+      ordre = fgetc(stdin);
+        
+      switch(ordre){
+      case 'l':
       case 'L':
          play(g,LEFT);
          break;
+      case 'r':
       case 'R':
          play(g,RIGHT);
          break;
+      case 'u':
       case 'U':
          play(g,UP);
          break;
+      case 'd':
       case 'D':
          play(g,DOWN);
          break;
+      case 's':
       case 'S':
          continuer=0;
          break;
