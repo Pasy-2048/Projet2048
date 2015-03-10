@@ -5,8 +5,12 @@
 
 // Algorithme de résolution rapide avec affichage.
 // Radical identique à celui de hidee-alt.c.
-int main(void){srand(time(NULL));grid g=new_grid();
-  bool hE=0;int i,j;i=availMoves(g);
+int main(void){
+  srand(time(NULL));
+  grid g=new_grid();
+  bool hE=0;
+  int i,j;
+  i=availMoves(g);
   while(!game_over(g)){
 	j=i%4;
     if(j!=0){if(hE==0){if(j%2==1){play(g,LEFT);hE=1;}

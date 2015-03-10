@@ -3,15 +3,19 @@
 /*     Yannis Baltus - Simon Lejeune - Alexis Richard - Pierre Martin           */
 /******************************************************************************/
 
-
-#include "grid.h"
-#include "fonctions-sup.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
 #include <string.h>
 
+#include "grid.h"
+#include "fonctions-sup.h"
+
+
+
+>>>>>>> 17/02_Compil
 void set_score(grid g, unsigned long int score);
 int get_free_tiles(grid g);
 void set_free_tiles (grid g, int x);
@@ -21,20 +25,22 @@ static tile next(grid g, int x, int y, dir d);
 struct grid_s
 {
     tile** matrice;
+  
     unsigned long int score;
     int nb_free_tiles;
 };
 
 /******************************************************************************/
-/*                                Constructeurs                               */
+/*                                Constructeur                               */
 /******************************************************************************/
 
 //------------------------------------------------------------------------------
 // param: rien
 // Return:  Gird : grille
 // Purpose: Fonction qui construit une nouvelle grille
-// realisation : Yannis Baltus
+// Realisation : Yannis Baltus
 //------------------------------------------------------------------------------
+
 grid new_grid ()
 {
     grid g=malloc(sizeof(struct grid_s));
@@ -57,14 +63,14 @@ grid new_grid ()
 }
 
 /******************************************************************************/
-/*                                 destructeur                                */
+/*                                 Destructeur                                */
 /******************************************************************************/
 
 //------------------------------------------------------------------------------
-// param: grid : grille
+// Param: grid : grille
 // Return:  rien
 // Purpose: Fonction qui libère la mémoire d'une grille
-// realisation : Simon Lejeune
+// Realisation : Simon Lejeune
 //------------------------------------------------------------------------------
 void delete_grid (grid g)
 {
@@ -83,18 +89,18 @@ void delete_grid (grid g)
 
 
 //------------------------------------------------------------------------------
-// param: grid : grille source
-// param: grid : grille destination
+// Param: grid : grille source
+// Param: grid : grille destination
 // Return:  rien
 // Purpose: Fonction qui copie une grille
-// realisation : Simon Lejeune
+// Realisation : Simon Lejeune
 //------------------------------------------------------------------------------
 void copy_grid (grid src, grid dst)
 {
     int i,j;
-    for(i=0;i<GRID_SIDE;i++)
+    for(i=0; i<GRID_SIDE; i++)
         {
-            for(j=0;j<GRID_SIDE;j++)
+            for(j=0; j<GRID_SIDE; j++)
             {
                 set_tile(dst,i,j,get_tile(src,i,j));
             }
@@ -141,10 +147,10 @@ void set_free_tiles(grid g, int x)
 
 
 //------------------------------------------------------------------------------
-// param: grid : grille
+// Param: grid : grille
 // Return:  unsigned long int : score
 // Purpose: Fonction qui permet d'avoir le score de la partie
-// realisation : Yannis Baltus
+// Realisation : Yannis Baltus
 //------------------------------------------------------------------------------
 unsigned long int grid_score (grid g)
 {
@@ -155,10 +161,13 @@ unsigned long int grid_score (grid g)
 //------------------------------------------------------------------------------
 // param: grid : grille
 // param: dir : direction
+// Param: grid : grille
+// Param: dir : direction
 // Return:  un booleen
 // Purpose: Fonction qui permet de savoir si on peut bouger vers une direction
-// realisation : Pierre Louis, Alexis Richard
+// Realisation : Pierre Martin, Alexis Richard
 //------------------------------------------------------------------------------
+//                             Version 1
 /*bool can_move (grid g, dir d){
 	int i,j,k;
     bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);
@@ -177,18 +186,26 @@ unsigned long int grid_score (grid g)
 	}
     return false;*/																	//Et si aucun déplacement n'est possible, le mouvement n'est pas valable, et on renvoie false.
 
+//--------------------------------------------------------------------------------
+//                             Version 2                                          
+
 bool can_move(grid g, dir d)
 {
-    int xDebut = (d==LEFT)?1:0, xFin = (d==RIGHT)? GRID_SIDE-2:GRID_SIDE-1 ;  // On parcourt le tableau dans le meme sens pour chaque direction.
-    int yDebut = (d==UP)?1:0, yFin = (d==DOWN)? GRID_SIDE-2:GRID_SIDE-1;      // Si une tuile non vide suit une tuile vide, alors on peut bouger.
-    int x,y;                                                                      // Si deux tuiles qui se suivent ont la meme valeur, alors on peut bouger.
-    tile tNext;
+/* 
+   On parcourt le tableau dans le meme sens pour chaque direction.
+   Si une tuile non vide suit une tuile vide, alors on peut bouger.
+   Si deux tuiles qui se suivent ont la meme valeur, alors on peut bouger.
+*/
+    int xDebut = (d==LEFT)?1:0, xFin = (d==RIGHT)? GRID_SIDE-2:GRID_SIDE-1;  
+    int yDebut = (d==UP)?1:0, yFin = (d==DOWN)? GRID_SIDE-2:GRID_SIDE-1;    
+    int x,y;                                                                    
+    tile nextTile;
     for(x=xDebut; x<=xFin; x++){
         for(y=yDebut; y<=yFin; y++){
 	    if(get_tile(g, x, y)!=0){
-	      tNext=(next(g, x, y, d));
-            	if(tNext==0 || tNext==get_tile(g, x, y))
-                	return true;
+	      nextTile = next(g, x, y, d);
+              if(nextTile == 0 || nextTile == get_tile(g, x, y))
+                 return true;
 	    }
         }
     }
@@ -219,29 +236,19 @@ bool can_move(grid g, dir d)
 
 static tile next(grid g, int x, int y, dir d)
 {
-    tile next;
-    switch(d){
-    case RIGHT:
-        next = g->matrice[x+1][y];
-        break;
-    case LEFT:
-        next = g->matrice[x-1][y];
-        break;
-    case UP:
-        next = g->matrice[x][y-1];
-        break;
-    case DOWN:
-        next = g->matrice[x][y+1];
-        break;
-    }
-    return next;
+  bool horizontal=0, vertical=0;
+  if (d==LEFT || d==RIGHT)
+    horizontal=(d==LEFT)?-1:1;
+  else
+    vertical=(d==DOWN)?1:-1;
+  return get_tile(g, x+horizontal, y+vertical);
 }
 
 
 
 
 //------------------------------------------------------------------------------
-// param: grid : grille
+// Param: grid : grille
 // Return:  rien
 // Purpose: Fonction qui permet de savoir si la partie est finie
 // realisation : Simon Lejeune, Yannis Baltus, Pierre Martin
@@ -273,8 +280,8 @@ bool game_over (grid g)
 
 
 //------------------------------------------------------------------------------
-// param: grid : source
-// param: dir : direction
+// Param: grid : source
+// Param: dir : direction
 // Return:  rien
 // Purpose: Fonction qui execute les mouvements dans une direction.
 // realisation : Alexis Richard Pierre Martin
@@ -302,31 +309,42 @@ void do_move (grid g, dir d){
         j=(GRID_SIDE-1)*sup;											//On initialise j à la 'première' case de la ligne/colonne, selon le sens dans lequel elle doit être parcourue (fourni par sup).
         while(continuer==1&&j*(1-2*sup)<jmax){	       	                //On continue tant qu'il reste des cases non vérifiées (potentiellement non nulles) dans la ligne/colonne actuellement parcourue, et qu'on est pas arrivé à la fin de ladite li/co.
             Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));		 	//Ici, loni determine le role de i et j. Par exemple, pour un mouvement vertical, i est l'absisse et j l'ordonnée, et c'est l'inverse pour un mouvement horizontal.
+=======
+// Realisation : Alexis Richard Pierre Martin
+//------------------------------------------------------------------------------
+void do_move (grid g, dir d){
+// Loni représente la verticalité (ou non) du mouvement. 
+// Sup détermine s'il faudras partir du début ou de la fin des colonnes parcourues.
+    bool horizontal=((d==LEFT||d==RIGHT)?1:0);
+    bool sup=((d==RIGHT||d==DOWN)?1:0);
+    bool continuer;
+    
+    tile Tj, Tk;
+    int i, j, k;
+    int jmax = (GRID_SIDE-1)*(1-sup);
+    int kmax = jmax-(2*sup)+1;
+
+    for(i=0;i<GRID_SIDE;i++){
+        continuer=1;
+        j=(GRID_SIDE-1)*sup; // j représente la première case de la ligne ou de la colonne que nous allons parcourir.
+        while(continuer==1&&j*(1-2*sup)<jmax){	       	                //On continue tant qu'il reste des cases non vérifiées (potentiellement non nulles) dans la ligne/colonne actuellement parcourue, et qu'on est pas arrivé à la fin de ladite li/co.
+            Tj=get_tile(g,j*horizontal+i*(1-horizontal),i*horizontal+j*(1-horizontal));		 	//Ici, loni determine le role de i et j. Par exemple, pour un mouvement vertical, i est l'absisse et j l'ordonnée, et c'est l'inverse pour un mouvement horizontal.
+>>>>>>> 17/02_Compil
             k=j;
             if(Tj==0){ 															//Si la case actuelle est vide, on cherche plus 'loin' dans la lico pour une nouvelle valeur.
                 continuer=0;
                 for(k=k+1-2*sup;k*(1-2*sup)<kmax*(1-2*sup);k+=(1-2*sup)){
-					/*
-					Equivalent à:
-					if(sup==1){
-						for(k=k-1;k>kmax;k--){
-							(...)
-						}
-					}else if(sup==0){
-						for(k=k+1;k<kmax;k++){
-							(...)
-						}
-					}
-																				//On initialise k à la case 'suivant' celle de j, puis on parcours la lico dans le sens fourni par sup.
-					*/
-                    Tk=get_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni));			//loni determine le role de i et k..
+
+																	    
+			       
+		  Tk=get_tile(g, k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal)); /*<=next*/
                     if(Tk!=0){
                         if(k!=jmax){											//
                             continuer=1;										//Ce if est utile si on trouve bien une nouvelle valeur, mais à la dernière case de la lico.
                         }														//En effet, il n'y auras plus de cases de valeur après Tj, donc ni déplacement ni fusions.
-                        set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);		//
-                        set_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni),Tk);		//On 'déplace' Tk dans Tj
-						Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));		//Et on met Tj à jour.
+                        set_tile(g,k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal),0);		//
+                        set_tile(g,j*horizontal+i*(1-horizontal),i*horizontal+j*(1-horizontal),Tk);		//On 'déplace' Tk dans Tj
+			Tj=get_tile(g,j*horizontal+i*(1-horizontal),i*horizontal+j*(1-horizontal));		//Et on met Tj à jour.
                         break;
                     }
                 }
@@ -346,17 +364,17 @@ void do_move (grid g, dir d){
 					}
 				}																					//À noter que kmax est un extrème, pas forcément un maximum.
 				*/
-                    Tk=get_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni));								//loni détermine, blah blah blah...
+                    Tk=get_tile(g,k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal));								//loni détermine, blah blah blah...
                     if(Tk!=0){
                         if(Tk==Tj){																	//Si la case suivante est équivalente à Tj, on fusionne;
-                            set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);						//On enlève l'autre case.
-                            set_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni),Tj+1);					//On augmente le niveau de Tj.
+                            set_tile(g,k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal),0);						//On enlève l'autre case.
+                            set_tile(g,j*horizontal+i*(1-horizontal),i*horizontal+j*(1-horizontal),Tj+1);					//On augmente le niveau de Tj.
                             set_free_tiles(g,get_free_tiles(g)+1);									//Ca libère une case.
                             set_score(g,grid_score(g)+valeur(2,Tj));									//Et ça donne des points.
                         }
                         if(Tk!=Tj){																	//Sinon, on la rapproche de Tj:
-                            set_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni),0);						//On l'enlève.
-                            set_tile(g,(j+1-2*sup)*loni+i*(1-loni),i*loni+(j+1-2*sup)*(1-loni),Tk);	//La case 'après' Tj prend sa valeur. (À noter que ce mouvement peut n'avoir aucun impact.
+                            set_tile(g,k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal),0);						//On l'enlève.
+                            set_tile(g,(j+1-2*sup)*horizontal+i*(1-horizontal),i*horizontal+(j+1-2*sup)*(1-horizontal),Tk);	//La case 'après' Tj prend sa valeur. (À noter que ce mouvement peut n'avoir aucun impact.
                         }
 						if(k!=jmax){
                             continuer=1;															//Et si c'est la peine, on refait un tour.
@@ -372,7 +390,7 @@ void do_move (grid g, dir d){
 
 
 //------------------------------------------------------------------------------
-// param: grid source
+// Param: grid source
 // Return:  rien
 // Purpose: Fonction qui ajoute aléatoirement un tuile de valeur 2 ou 4
 // avec une chance de 1/10 pour la tuile 4 et 9/10 pour la tuile 2.
@@ -412,11 +430,11 @@ void add_tile (grid g)
 }
 
 //------------------------------------------------------------------------------
-// param: grid : grille
-// param: dir : direction
+// Param: grid : grille
+// Param: dir : direction
 // Return:  rien
 // Purpose: Fonction qui joue un tour
-// realisation : Yannis Baltus
+// Realisation : Yannis Baltus
 //------------------------------------------------------------------------------
 
 void play(grid g,dir d)
