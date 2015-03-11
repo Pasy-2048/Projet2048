@@ -53,6 +53,7 @@ void show_grid(grid g)
 		printf("\n\n");
 	}
     //printf("Free tiles: %d. Score: %lu\n",get_free_tiles(g),grid_score(g));
+	//Si la dernière ligne est en commentaire c'est que get_free_tiles() est inappelable en dehors de grid.c. Cette fonction n'as rien à faire ici et quiconque l'a déplacé depuis grid.c est prié de la remettre à sa place, ainsi que la fonction valeur, qui ne sert litéralement qu'à fournir des données à afficher à show_grid.
 }
 
 //------------------------------------------------------------------------------
