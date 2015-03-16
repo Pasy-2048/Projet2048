@@ -19,7 +19,7 @@ int get_free_tiles(grid g);
 void set_free_tiles (grid g, int x);
 void show_grid(grid g);
 unsigned int valeur(int a, unsigned int b);
-static tile next(grid g, int x, int y, dir d);
+//static tile next(grid g, int x, int y, dir d);
 struct grid_s
 {
     tile** matrice;
@@ -166,7 +166,7 @@ unsigned long int grid_score (grid g)
 // Realisation : Pierre Martin, Alexis Richard
 //------------------------------------------------------------------------------
 //                             Version 1
-/*bool can_move (grid g, dir d){
+bool can_move (grid g, dir d){
 	int i,j,k;
     bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);
     tile Tj,Tk;
@@ -187,18 +187,18 @@ unsigned long int grid_score (grid g)
 		}
 	}
  //Et si aucun déplacement n'est possible, le mouvement n'est pas valable, et on renvoie false.
-    return false;*/
+    return false;
+}
 //--------------------------------------------------------------------------------
 //                             Version 2                                          
 
 bool can_move(grid g, dir d)
 {
-/* 
    On parcourt le tableau dans le meme sens pour chaque direction.
    Si une tuile non vide suit une tuile vide, alors on peut bouger.
    Si deux tuiles qui se suivent ont la meme valeur, alors on peut bouger.
 */
-    int xDebut = (d==LEFT)?1:0, xFin = (d==RIGHT)? GRID_SIDE-2:GRID_SIDE-1;  
+   /* int xDebut = (d==LEFT)?1:0, xFin = (d==RIGHT)? GRID_SIDE-2:GRID_SIDE-1;  
     int yDebut = (d==UP)?1:0, yFin = (d==DOWN)? GRID_SIDE-2:GRID_SIDE-1;    
     int x,y;                                                                    
     tile nextTile;
@@ -213,7 +213,7 @@ bool can_move(grid g, dir d)
     }
     return false;
 
-/*     int i,j,k;
+    int i,j,k;
 
     bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);
     tile Tj,Tk;
@@ -233,10 +233,10 @@ bool can_move(grid g, dir d)
             }
         }
     }
-    return false;*/
-}
+    return false;
+}*/
 
-static tile next(grid g, int x, int y, dir d)
+/*static tile next(grid g, int x, int y, dir d)
 {
   bool horizontal=0, vertical=0;
   if (d==LEFT || d==RIGHT)
@@ -244,7 +244,7 @@ static tile next(grid g, int x, int y, dir d)
   else
     vertical=(d==DOWN)?1:-1;
   return get_tile(g, x+horizontal, y+vertical);
-}
+}*/
 
 
 
@@ -319,8 +319,6 @@ bool game_over (grid g)
 */
             
 void do_move (grid g, dir d){
-// Loni représente la verticalité (ou non) du mouvement. 
-// Sup détermine s'il faudras partir du début ou de la fin des colonnes parcourues.
     bool horizontal=((d==LEFT||d==RIGHT)?1:0);
     bool sup=((d==RIGHT||d==DOWN)?1:0);
     bool continuer;

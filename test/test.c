@@ -1,8 +1,8 @@
-#include "grid.h"
+#include "../grid.h"
 #include "time.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "fonctions-sup.h"
+#include "../fonctions-sup.h"
 
 // Fichier terminé.
 // Usage: Lance un 2048 dans le repertoire, controllable par U(p),D(own),L(eft),R(ight) et S(top).
@@ -20,6 +20,28 @@ int main()
     while(!game_over(g) && continuer==1){
       
       ordre = fgetc(stdin);
+
+
+    // test de la fonction can_move
+    if(can_move(g,RIGHT))
+      printf("can_move:test RIGHT--------OK\n");
+    else
+      printf("can_move:test RIGHT--------NOK\n");
+
+    if(can_move(g,LEFT))
+      printf("can_move:test LEFT--------OK\n");
+    else
+      printf("can_move:test LEFT--------NOK\n");
+    
+    if(can_move(g,UP))
+      printf("can_move:test UP--------OK\n");
+    else
+      printf("can_move:test UP--------NOK\n");
+    
+    if(can_move(g,DOWN))
+      printf("can_move:test DOWN--------OK\n");
+    else
+      printf("can_move:test DOWN--------NOK\n");
         
       switch(ordre){
       case 'l':
