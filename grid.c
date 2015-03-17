@@ -19,7 +19,6 @@ int get_free_tiles(grid g);
 void set_free_tiles (grid g, int x);
 void show_grid(grid g);
 unsigned int valeur(int a, unsigned int b);
-//static tile next(grid g, int x, int y, dir d);
 struct grid_s
 {
     tile** matrice;
@@ -189,66 +188,6 @@ bool can_move (grid g, dir d){
  //Et si aucun déplacement n'est possible, le mouvement n'est pas valable, et on renvoie false.
     return false;
 }
-//--------------------------------------------------------------------------------
-//                             Version 2                                          
-
-bool can_move(grid g, dir d)
-{
-   On parcourt le tableau dans le meme sens pour chaque direction.
-   Si une tuile non vide suit une tuile vide, alors on peut bouger.
-   Si deux tuiles qui se suivent ont la meme valeur, alors on peut bouger.
-*/
-   /* int xDebut = (d==LEFT)?1:0, xFin = (d==RIGHT)? GRID_SIDE-2:GRID_SIDE-1;  
-    int yDebut = (d==UP)?1:0, yFin = (d==DOWN)? GRID_SIDE-2:GRID_SIDE-1;    
-    int x,y;                                                                    
-    tile nextTile;
-    for(x=xDebut; x<=xFin; x++){
-        for(y=yDebut; y<=yFin; y++){
-	    if(get_tile(g, x, y)!=0){
-	      nextTile = next(g, x, y, d);
-              if(nextTile == 0 || nextTile == get_tile(g, x, y))
-                 return true;
-	    }
-        }
-    }
-    return false;
-
-    int i,j,k;
-
-    bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);
-    tile Tj,Tk;
-    for(i=0;i<GRID_SIDE;i++)
-    {
-        for(j=(GRID_SIDE-1)*(1-sup);j*(2*sup-1)<(GRID_SIDE-1)*sup;j+=(2*sup-1))
-        {
-            Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));
-            if(Tj!=0)
-            {
-                k=j+2*sup-1;
-                Tk=get_tile(g,k*loni+i*(1-loni),i*loni+k*(1-loni));
-                if(Tk==0||Tk==Tj)
-                    {
-                        return true;
-                    }
-            }
-        }
-    }
-    return false;
-}*/
-
-/*static tile next(grid g, int x, int y, dir d)
-{
-  bool horizontal=0, vertical=0;
-  if (d==LEFT || d==RIGHT)
-    horizontal=(d==LEFT)?-1:1;
-  else
-    vertical=(d==DOWN)?1:-1;
-  return get_tile(g, x+horizontal, y+vertical);
-}*/
-
-
-
-
 //------------------------------------------------------------------------------
 // Param: grid : grille
 // Return:  rien
@@ -288,36 +227,6 @@ bool game_over (grid g)
 // Purpose: Fonction qui execute les mouvements dans une direction.
 // realisation : Alexis Richard Pierre Martin
 //------------------------------------------------------------------------------
-/*void do_move (grid g, dir d){
-    bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0),continuer;// Loni représente la verticalité (ou non) du mouvement. Sup détermine s'il faudras partir du début ou de la fin des colonnes parcourues.
-    tile Tj,Tk;
-    int i,j,k,jmax=(GRID_SIDE-1)*(1-sup),kmax=jmax-(2*sup)+1;
-	Equivalent à:
-	int i;
-	int j;
-	int k;
-	if(sup==1){
-		int jmax=0;
-		int kmax=-1;
-	}else if(sup==0){
-		int jmax=GRID_SIDE-1;
-		int kmax=GRID_SIDE;
-	}
-    //Les 'maximums' ne sont atteints ni par j, ni par k; aucun risque d'erreur.
-    for(i=0;i<GRID_SIDE;i++){
-        continuer=1;
-        //On initialise j à la 'première' case de la ligne/colonne, selon le sens dans lequel elle doit être parcourue (fourni par sup).
-        j=(GRID_SIDE-1)*sup;
-        //On continue tant qu'il reste des cases non vérifiées (potentiellement non nulles) dans la ligne/colonne actuellement parcourue, et qu'on est pas arrivé à la fin de ladite li/co.
-        while(continuer==1&&j*(1-2*sup)<jmax){
-            //Ici, loni determine le role de i et j. Par exemple, pour un mouvement vertical, i est l'absisse et j l'ordonnée, et c'est l'inverse pour un mouvement horizontal.
-            Tj=get_tile(g,j*loni+i*(1-loni),i*loni+j*(1-loni));
-
-
-// Realisation : Alexis Richard Pierre Martin
-//------------------------------------------------------------------------------
-*/
-            
 void do_move (grid g, dir d){
     bool horizontal=((d==LEFT||d==RIGHT)?1:0);
     bool sup=((d==RIGHT||d==DOWN)?1:0);
@@ -332,19 +241,18 @@ void do_move (grid g, dir d){
         continuer=1;
         //j représente la première case de la ligne ou de la colonne que nous allons parcourir.
         j=(GRID_SIDE-1)*sup;
-        //On continue tant qu'il reste des cases non vérifiées (potentiellement non nulles) dans la ligne/colonne actuellement parcourue, et qu'on est pas arrivé à la fin de ladite li/co.
+        //On continue tant qu'il reste des cases non vérifiées (potentiellement non nulles) dans la 
+        //ligne/colonne actuellement parcourue, et qu'on est pas arrivé à la fin de ladite li/co.
         while(continuer==1&&j*(1-2*sup)<jmax){
-            //Ici, loni determine le role de i et j. Par exemple, pour un mouvement vertical, i est l'absisse et j l'ordonnée, et c'est l'inverse pour un mouvement horizontal.
+            //Ici, loni determine le role de i et j. Par exemple, pour un mouvement vertical, 
+            //i est l'absisse et j l'ordonnée, et c'est l'inverse pour un mouvement horizontal.
             Tj=get_tile(g,j*horizontal+i*(1-horizontal),i*horizontal+j*(1-horizontal));
             k=j;
             //Si la case actuelle est vide, on cherche plus 'loin' dans la lico pour une nouvelle valeur.
             if(Tj==0){
                 continuer=0;
                 for(k=k+1-2*sup;k*(1-2*sup)<kmax*(1-2*sup);k+=(1-2*sup)){
-
-																	    
-			       
-		  Tk=get_tile(g, k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal)); /*<=next*/
+		            Tk=get_tile(g, k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal)); /*<=next*/
                     if(Tk!=0){
                         //Ce if est utile si on trouve bien une nouvelle valeur, mais à la dernière case de la lico.
                         if(k!=jmax){
@@ -395,7 +303,7 @@ void do_move (grid g, dir d){
                         if(Tk!=Tj){
                             //On l'enlève.
                             set_tile(g,k*horizontal+i*(1-horizontal),i*horizontal+k*(1-horizontal),0);
-                            //La case 'après' Tj prend sa valeur. (À noter que ce mouvement peut n'avoir aucun impact.
+                            //La case 'après' Tj prend sa valeur. (À noter que ce mouvement peut n'avoir aucun impact.)
                             set_tile(g,(j+1-2*sup)*horizontal+i*(1-horizontal),i*horizontal+(j+1-2*sup)*(1-horizontal),Tk);
                         }
 						if(k!=jmax){
@@ -424,6 +332,7 @@ void add_tile (grid g)
 {
     // On prend un nombre entre 0 et le nombre de cases vides actuel -1.
     int random_free_tiles=rand()%get_free_tiles(g);
+    // ln = ligne, cl = colonne
     int ln=0, cl=0;
     // On le fait correspondre à une case vide sur la grille.
     while(random_free_tiles>0)
