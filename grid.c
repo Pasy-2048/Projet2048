@@ -53,7 +53,6 @@ grid new_grid ()
         }
 	add_tile(g);
 	add_tile(g);
-	show_grid(g);
     return g;
 }
 
@@ -162,7 +161,6 @@ unsigned long int grid_score (grid g)
 // Purpose: Fonction qui permet de savoir si on peut bouger vers une direction
 // Realisation : Pierre Martin, Alexis Richard
 //------------------------------------------------------------------------------
-//                             Version 1
 bool can_move (grid g, dir d){
 	int i,j,k;
     bool loni=((d==LEFT||d==RIGHT)?1:0),sup=((d==RIGHT||d==DOWN)?1:0);

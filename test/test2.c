@@ -29,7 +29,6 @@ int main()
 	grid g = new_grid();
 	grid h = new_grid();
 	fill_grid(g,0);
-	show_grid(g);
 
 	// Premier Cas Mouvement simple :
 	set_tile(g,1,0,1);
