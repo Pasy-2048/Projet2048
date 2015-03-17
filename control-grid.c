@@ -1,7 +1,7 @@
 #include "grid.h"
-#include "time.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "fonctions-sup.h"
 
 // Fichier terminé.
@@ -15,31 +15,31 @@ int main()
     grid g=new_grid();
     bool continuer=1;
     char ordre;
-    printf("Entrez L,R,U,D pour controler\n");
-    printf("Entrez S pour terminer automatiquement le jeu\n");
+    printf("Entrez Z(haut),Q(gauche),S(bas),D(droite) pour controler\n");
+    printf("Entrez T pour terminer automatiquement le jeu\n");
     while(!game_over(g) && continuer==1){
       
       ordre = fgetc(stdin);
         
       switch(ordre){
-      case 'l':
-      case 'L':
+      case 'q':
+      case 'Q':
          play(g,LEFT);
-         break;
-      case 'r':
-      case 'R':
-         play(g,RIGHT);
-         break;
-      case 'u':
-      case 'U':
-         play(g,UP);
          break;
       case 'd':
       case 'D':
-         play(g,DOWN);
+         play(g,RIGHT);
+         break;
+      case 'z':
+      case 'Z':
+         play(g,UP);
          break;
       case 's':
       case 'S':
+         play(g,DOWN);
+         break;
+      case 't':
+      case 'T':
          continuer=0;
          break;
       }

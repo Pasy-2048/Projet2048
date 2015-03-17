@@ -17,8 +17,6 @@
 void set_score(grid g, unsigned long int score);
 int get_free_tiles(grid g);
 void set_free_tiles (grid g, int x);
-void show_grid(grid g);
-unsigned int valeur(int a, unsigned int b);
 struct grid_s
 {
     tile** matrice;
