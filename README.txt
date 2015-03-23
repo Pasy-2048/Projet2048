@@ -33,3 +33,9 @@ Deux solutions complètes sont réalisables:
 
 'Il faudra surement mettre grid.c sous forme de librairie par la suite...'
 Il faut simplement fournir les fichier nécessaires à l'établissement d'une libraire. Rien ne demande à ce qu'on la monte nous-mêmes.
+
+23/03 (PL) REP:
+
+Autre solution (barbare): Créer une nouvelle fonction get_free_tiles dans ton fichier qui va parcourir le tableau et retourner le nombre de cases libres.
+
+
