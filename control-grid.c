@@ -1,7 +1,7 @@
 #include "grid.h"
-#include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "time.h"
+#include "stdio.h"
+#include "stdlib.h"
 #include "fonctions-sup.h"
 
 // Fichier terminé.
@@ -14,49 +14,47 @@ int main()
     srand(time(NULL));
     grid g=new_grid();
     bool continuer=1;
-    char ordre;
-    printf("Entrez Z(haut),Q(gauche),S(bas),D(droite) pour controler\n");
-    printf("Entrez T pour terminer automatiquement le jeu\n");
+    char ordre[2];
+    show_grid(g);
     while(!game_over(g) && continuer==1){
-      
-      ordre = fgetc(stdin);
-        
-      switch(ordre){
-      case 'q':
-      case 'Q':
+      fgets(ordre, 2, stdin);
+      switch(ordre[0]){
+      case 'L':
+      case 'l':
          play(g,LEFT);
          break;
-      case 'd':
-      case 'D':
+      case 'R':
+      case 'r':
          play(g,RIGHT);
          break;
-      case 'z':
-      case 'Z':
+      case 'U':
+      case 'u':
          play(g,UP);
          break;
-      case 's':
-      case 'S':
+      case 'D':
+      case 'd':
          play(g,DOWN);
          break;
-      case 't':
-      case 'T':
+      case 'S':
+      case 's':
          continuer=0;
          break;
       }
     }
-    bool hE=0;
-    int i,j;
-    i=availMoves(g);
     while(!game_over(g)){
-    j=i%4;
-      if(j!=0){if(hE==0){if(j%2==1){play(g,LEFT);hE=1;}
-    else{play(g,RIGHT);}}
-        else{if(j>=2){play(g,RIGHT);hE=0;}
-    else{play(g,LEFT);}}}
-      i=availMoves(g);j=i/4;
-      if(j!=0){if(j>=2){play(g,UP);}
-        else if(i==4){play(g,DOWN);}}}
-    show_grid(g);
+        if(can_move(g,RIGHT)){
+            play(g,RIGHT);
+        }
+	else if(can_move(g,UP)){
+            play(g,UP);
+        }
+	else if(can_move(g,DOWN)){
+            play(g,DOWN);
+        }
+	else{
+            play(g,LEFT);
+        }
+    }
     delete_grid(g);
     return 0;
 }

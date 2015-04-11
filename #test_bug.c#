@@ -1,0 +1,7 @@
+#include "grid.h"
+#include "fonctions-sup.h"
+
+int main(int argc, char** argv){
+  grid g = mew_grid();
+  int i,j;
+  

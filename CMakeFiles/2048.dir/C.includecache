@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/net/cremi/alerichard/Bureau/git projet/fonctions-sup.h
+grid.h
+/net/cremi/alerichard/Bureau/git projet/grid.h
+
+/net/cremi/alerichard/Bureau/git projet/grid.c
+assert.h
+-
+stdio.h
+-
+stdlib.h
+-
+stdbool.h
+-
+time.h
+-
+string.h
+-
+grid.h
+/net/cremi/alerichard/Bureau/git projet/grid.h
+fonctions-sup.h
+/net/cremi/alerichard/Bureau/git projet/fonctions-sup.h
+
+/net/cremi/alerichard/Bureau/git projet/grid.h
+stdbool.h
+-
+
