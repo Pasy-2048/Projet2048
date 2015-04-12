@@ -11,6 +11,7 @@ dir Israfel(strategy s,grid g){
 		return Shinji(s,g);
 	else
 		return Asuka(s,g);
+}
   
 dir Shinji(strategy s, grid g){
 	((bool*)s->mem)[1]==1;
