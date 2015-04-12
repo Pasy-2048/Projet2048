@@ -5,10 +5,6 @@
 void free_memless_strat (strategy strat){
   free (strat);}
 
-dir Israfel(strategy s, grid g){
-	return Shinji(s,g);
-}
-
 dir Shinji(strategy s, grid g){
 	j=availMoves(g)%4;
 	if(j!=0){
@@ -53,7 +49,7 @@ strategy A1_baltus_lejeune_richard_martin_slow(){
 	srand(time(NULL));
 	strategy s=malloc(sizeof(struct strategy_s));
 	s->name="PASY";
-	s->play_move=Israfel;
+	s->play_move=Shinji;
 	s->mem=malloc(sizeof(bool));
 	s->free_strategy=Zeruel;
 	((int*)(s->mem))={0,0};
