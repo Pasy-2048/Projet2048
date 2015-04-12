@@ -11,6 +11,5 @@ extern void free_memless_strat (strategy strat);
 dir Shinji(strategy s, grid g);
 dir Asuka(strategy s, grid g);
 void Zeruel (strategy strat);
-
-
+int availMoves(grid g);
 #endif /* STRATEGY_H_ */

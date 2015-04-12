@@ -34,13 +34,11 @@ dir Shinji(strategy s, grid g){
 
 dir Asuka(strategy s, grid g){
 	int j=availMoves(g)/4;
-	if(j!=0){
-		if(j>=2){
-			return UP;
-		}
-		else(j==1){
-			return DOWN;
-		}
+	if(j>=2){
+		return UP;
+	}
+	else{
+		return DOWN;
 	}
 }
 
@@ -54,6 +52,8 @@ strategy A1_baltus_lejeune_richard_martin_fast(){
 	s->play_move=Shinji;
 	s->mem=malloc(sizeof(bool));
 	s->free_strategy=Zeruel;
-	((int*)(s->mem))={0,0};
+	((int*)(s->mem))=[0,0];
 	return s;
 }
+int availMoves(grid g){
+	return (((can_move(g,LEFT))?1:0)+((can_move(g,RIGHT))?2:0)+((can_move(g,DOWN))?4:0)+((can_move(g,UP))?8:0));}
