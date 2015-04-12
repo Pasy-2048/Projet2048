@@ -14,7 +14,7 @@ dir Israfel(strategy s,grid g){
 }
   
 dir Shinji(strategy s, grid g){
-	((bool*)s->mem)[1]==1;
+	((bool*)s->mem)[1]=1;
 	int j=availMoves(g)%4;
 	if(j!=0){
 		if(((bool*)s->mem)[0]==0){
@@ -41,7 +41,7 @@ dir Shinji(strategy s, grid g){
 }
 
 dir Asuka(strategy s, grid g){
-	((bool*)s->mem)[1]==0;
+	((bool*)s->mem)[1]=0;
 	int j=availMoves(g)/4;
 	if(j!=0){
 		if(j>=2){
