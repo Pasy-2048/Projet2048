@@ -6,8 +6,6 @@
 void free_memless_strat (strategy strat){
   free (strat);
 }
-
-
 int availMoves(grid g){
 	return (((can_move(g,LEFT))?1:0)+((can_move(g,RIGHT))?2:0)+((can_move(g,DOWN))?4:0)+((can_move(g,UP))?8:0));}
 void do_turn(grid g,dir d){
@@ -156,23 +154,21 @@ retour* best(gridP e,int depth){
 }
 dir play_move(strategy s, grid g){
 	gridP e;
-	e.nbFT=0;
+	e.nbFT=s->mem[0];
 	e.grille=g;
-	int i,j;
-	for(i=0;i<GRID_SIDE;i++)
-		for(j=0;j<GRID_SIDE;j++)
-			if(get_tile(g,i,j)==0)
-				(e.nbFT)++;
-	printf("%d\n",e.nbFT);
 	retour* r=best(e,5);
+    e.nbFT+=nbfuses(g,r->direction)+1;
 	dir d=r->direction;
 	free(r);
 	return d;}
+	
 strategy A1_baltus_lejeune_richard_martin_slow(){
 	srand(time(NULL));
 	strategy s=malloc(sizeof(struct strategy_s));
 	s->name="PASY";
 	s->play_move=play_move;
+	s->mem=malloc(sizeof(int));
+	s->mem[0]=GRID_SIDE*GRID_SIDE-2;
 	return s;
 }
 
