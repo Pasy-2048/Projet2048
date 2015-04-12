@@ -161,13 +161,17 @@ dir play_move(strategy s, grid g){
 	dir d=r->direction;
 	free(r);
 	return d;}
-	
+
+void freemem (strategy strat){
+free(strat->mem);}
+
 strategy A1_baltus_lejeune_richard_martin_slow(){
 	srand(time(NULL));
 	strategy s=malloc(sizeof(struct strategy_s));
 	s->name="PASY";
 	s->play_move=play_move;
 	s->mem=malloc(sizeof(int));
+	s->free_strategy=freemem;
 	*((int*)(s->mem))=GRID_SIDE*GRID_SIDE-2;
 	return s;
 }
