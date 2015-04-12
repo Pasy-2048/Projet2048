@@ -36,7 +36,8 @@ dir Shinji(strategy s, grid g){
 		}
 	}
 	else
-		return Asuka(s,g);
+		s->mem[0]=1;
+	return Asuka(s,g);
 }
 dir Asuka(strategy s, grid g){
 	j=availMoves(g)/4;
@@ -49,7 +50,8 @@ dir Asuka(strategy s, grid g){
 		}
 	}
 	else
-		return Shinji(s,g);
+		s->mem[0]=0;
+	return Shinji(s,g);
 }
 
 void Zeruel (strategy strat){
