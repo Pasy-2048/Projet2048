@@ -3,10 +3,9 @@
 #include "grid.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-void free_memless_strat (strategy strat);
-
-typedef struct strategy_s *strategy;
+typedef struct strategy_s* strategy;
 
 struct strategy_s{
   void* mem;
@@ -16,6 +15,8 @@ struct strategy_s{
 };
 
 int availMoves(grid g);
+
+void free_memless_strat (strategy strat);
 
 void do_turn(grid g,dir d);
 
@@ -39,7 +40,7 @@ long unsigned int heuristique(gridP e);
 
 retour* best(gridP e,int depth);
 
-dir* play_move(strategy s, grid g);
+dir play_move(strategy s, grid g);
 
 int min(int a, int b);
 #endif

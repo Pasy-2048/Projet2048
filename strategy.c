@@ -154,7 +154,7 @@ retour* best(gridP e,int depth){
 	ret->hMax=(ret->hMax)*0.5+heuristique(e);
 	return ret;
 }
-dir* play_move(strategy s, grid g){
+dir play_move(strategy s, grid g){
 	gridP e;
 	e.nbFT=0;
 	e.grille=g;
