@@ -168,6 +168,7 @@ dir* play_move(strategy s, grid g){
 	free(r);
 	return d;}
 strategy A1_baltus_lejeune_richard_martin_slow(){
+	srand(time(NULL));
 	strategy s=malloc(sizeof(struct strategy_s));
 	s->name="PASY";
 	s->play_move=play_move;
