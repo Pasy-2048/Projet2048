@@ -8,7 +8,9 @@ struct strategy_s{
   dir (*play_move) (strategy, grid);
   void (*free_strategy) (strategy); };
 extern void free_memless_strat (strategy strat);
-
+dir Shinji(strategy s, grid g);
+dir Asuka(strategy s, grid g);
+void Zeruel (strategy strat);
 
 
 #endif /* STRATEGY_H_ */
