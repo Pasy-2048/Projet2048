@@ -8,10 +8,10 @@ void free_memless_strat (strategy strat){
 dir Shinji(strategy s, grid g){
 	j=availMoves(g)%4;
 	if(j!=0){
-		if(s->mem[0]==0){
+		if(*((bool*)s->mem)==0){
 			if(j%2==1){
 				return LEFT;
-				s->mem[0]=1;
+				*((bool*)s->mem)=1;
 			}
 			else{
 				return RIGHT;
@@ -20,7 +20,7 @@ dir Shinji(strategy s, grid g){
 		else{
 			if(j>=2){
 				return RIGHT;
-				s->mem[0]=0;
+				*((bool*)s->mem)=0;
 			}
 			else{
 				return LEFT;
@@ -36,7 +36,7 @@ dir Asuka(strategy s, grid g){
 		if(j>=2){
 			return UP;
 		}
-		else if(j==1){
+		else(j==1){
 			return DOWN;
 		}
 	}
