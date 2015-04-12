@@ -45,7 +45,7 @@ dir Asuka(strategy s, grid g){
 void Zeruel (strategy strat){
 free(strat->mem);}
 
-strategy A1_baltus_lejeune_richard_martin_slow(){
+strategy A1_baltus_lejeune_richard_martin_fast(){
 	srand(time(NULL));
 	strategy s=malloc(sizeof(struct strategy_s));
 	s->name="PASY";
