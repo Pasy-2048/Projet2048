@@ -156,7 +156,7 @@ dir play_move(strategy s, grid g){
 	gridP e;
 	e.nbFT=*((int*)s->mem);
 	e.grille=g;
-	retour* r=best(e,5);
+	retour* r=best(e,4);
     e.nbFT+=nbfuses(g,r->direction)+1;
 	dir d=r->direction;
 	free(r);
