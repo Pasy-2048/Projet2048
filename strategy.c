@@ -88,6 +88,7 @@ int beurb(grid g){
       ret+=min(i+1,GRID_SIDE-i)*min(j+1,GRID_SIDE-j)*get_tile(g,i,j);
   return ret;
 }
+
 int sumfuses(grid g){
 	dir dirTab[4]={UP,DOWN,RIGHT,LEFT};
 	int i,n;
@@ -95,6 +96,7 @@ int sumfuses(grid g){
 		n+=nbfuses(g,dirTab[i]);}
 	return n;
 }
+
 retour* maxfuses(grid g){
 	dir dirTab[4]={UP,DOWN,RIGHT,LEFT};
 	int i,n;
@@ -107,6 +109,7 @@ retour* maxfuses(grid g){
 			ret->direction=dirTab[i];}}
 	return ret;
 }
+
 long unsigned int krakat(grid g){
 	int i,j,k;
 	long unsigned int ret=0;
@@ -116,18 +119,21 @@ long unsigned int krakat(grid g){
 				ret+=abs(get_tile(g,i,j)-get_tile(g,i+k,j+1-k));
 	return ret;
 }
+
 int min(int a, int b){
 	return (a<b)?a:b;}
+
 long unsigned int heuristique(gridP e){
 	retour* r=maxfuses(e.grille);
 	long int retour=25*(e.nbFT+(r->hMax))-e.nbFT*(9*krakat(e.grille)+4*beurb(e.grille));
 	free(r);
 	return retour;
 }
+
 retour* best(gridP e,int depth){
 	retour* ret=(retour*)malloc(sizeof(retour));
 	ret->hMax=0;
-	if(depth==0){
+	if(depth==0||game_over(e.grille)){
 		ret->hMax=heuristique(e);
 		return ret;
 	}
@@ -152,6 +158,7 @@ retour* best(gridP e,int depth){
 	ret->hMax=(ret->hMax)*0.5+heuristique(e);
 	return ret;
 }
+
 dir play_move(strategy s, grid g){
 	gridP e;
 	e.nbFT=*((int*)s->mem);
