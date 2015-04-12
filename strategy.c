@@ -163,6 +163,7 @@ dir play_move(strategy s, grid g){
 		for(j=0;j<GRID_SIDE;j++)
 			if(get_tile(g,i,j)==0)
 				(e.nbFT)++;
+	printf("%d\n",e.nbFT);
 	retour* r=best(e,5);
 	dir d=r->direction;
 	free(r);
