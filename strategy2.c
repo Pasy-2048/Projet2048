@@ -51,7 +51,7 @@ dir Asuka(strategy s, grid g){
 			return DOWN;
 		}
 	}
-	return Shinj(s,g);
+	return Shinji(s,g);
 }
 
 void Zeruel (strategy strat){
