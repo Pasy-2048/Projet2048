@@ -154,7 +154,7 @@ retour* best(gridP e,int depth){
 }
 dir play_move(strategy s, grid g){
 	gridP e;
-	e.nbFT=s->mem[0];
+	e.nbFT=*((int*)s->mem);
 	e.grille=g;
 	retour* r=best(e,5);
     e.nbFT+=nbfuses(g,r->direction)+1;
@@ -168,7 +168,7 @@ strategy A1_baltus_lejeune_richard_martin_slow(){
 	s->name="PASY";
 	s->play_move=play_move;
 	s->mem=malloc(sizeof(int));
-	s->mem[0]=GRID_SIDE*GRID_SIDE-2;
+	*((int*)(s->mem))=GRID_SIDE*GRID_SIDE-2;
 	return s;
 }
 
