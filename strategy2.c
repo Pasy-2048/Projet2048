@@ -52,7 +52,7 @@ strategy A1_baltus_lejeune_richard_martin_fast(){
 	s->play_move=Shinji;
 	s->mem=malloc(sizeof(bool));
 	s->free_strategy=Zeruel;
-	((int*)(s->mem))=[0,0];
+	((int*)(s->mem))=0;
 	return s;
 }
 int availMoves(grid g){
