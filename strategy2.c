@@ -6,20 +6,16 @@ void free_memless_strat (strategy strat){
   free (strat);}
 
 dir Israfel(strategy s, grid g){
-	if((s->mem[0])==0)
-		return Shinji(s,g);
-	else
-		return Asuka(s,g);
-	s->mem[0]=1-s->mem[0];
+	return Shinji(s,g);
 }
 
 dir Shinji(strategy s, grid g){
 	j=availMoves(g)%4;
 	if(j!=0){
-		if(s->mem[1]==0){
+		if(s->mem[0]==0){
 			if(j%2==1){
 				return LEFT;
-				s->mem[1]=1;
+				s->mem[0]=1;
 			}
 			else{
 				return RIGHT;
@@ -28,7 +24,7 @@ dir Shinji(strategy s, grid g){
 		else{
 			if(j>=2){
 				return RIGHT;
-				s->mem[1]=0;
+				s->mem[0]=0;
 			}
 			else{
 				return LEFT;
@@ -36,8 +32,7 @@ dir Shinji(strategy s, grid g){
 		}
 	}
 	else
-		s->mem[0]=1;
-	return Asuka(s,g);
+		return Asuka(s,g);
 }
 dir Asuka(strategy s, grid g){
 	j=availMoves(g)/4;
@@ -49,9 +44,6 @@ dir Asuka(strategy s, grid g){
 			return DOWN;
 		}
 	}
-	else
-		s->mem[0]=0;
-	return Shinji(s,g);
 }
 
 void Zeruel (strategy strat){
@@ -62,7 +54,7 @@ strategy A1_baltus_lejeune_richard_martin_slow(){
 	strategy s=malloc(sizeof(struct strategy_s));
 	s->name="PASY";
 	s->play_move=Israfel;
-	s->mem=malloc(sizeof(bool)*2);
+	s->mem=malloc(sizeof(bool));
 	s->free_strategy=Zeruel;
 	((int*)(s->mem))={0,0};
 	return s;
