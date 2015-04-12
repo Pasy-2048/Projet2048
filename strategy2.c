@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 void free_memless_strat (strategy strat){
   free (strat);}
 
 dir Shinji(strategy s, grid g){
-	j=availMoves(g)%4;
+	int j=availMoves(g)%4;
 	if(j!=0){
 		if(*((bool*)s->mem)==0){
 			if(j%2==1){
@@ -30,8 +31,9 @@ dir Shinji(strategy s, grid g){
 	else
 		return Asuka(s,g);
 }
+
 dir Asuka(strategy s, grid g){
-	j=availMoves(g)/4;
+	int j=availMoves(g)/4;
 	if(j!=0){
 		if(j>=2){
 			return UP;
