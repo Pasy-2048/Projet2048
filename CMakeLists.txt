@@ -6,6 +6,10 @@ set(CMAKE_C_FLAGS "-std=c99 -g -Wall -Werror")
 
 add_library(grid grid.c fonctions-sup.c)
 
+add_library(A1_baltus_lejeune_richard_martin_fast SHARED grid.c strategy2.c)
+
+add_library(A1_baltus_lejeune_richard_martin_slow SHARED grid.c strategy.c)
+
 add_executable(2048 control-grid.c grid)
 
 add_executable(testFct1 test/test.c grid)
