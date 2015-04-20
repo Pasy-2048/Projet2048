@@ -334,7 +334,12 @@ void play(grid g,dir d)
 		do_move(g,d);
 		add_tile(g);
 	}
-
+	show_grid(g);
+	printf("Score: %lu\n",grid_score(g));
+	if(game_over(g))
+	{
+		printf("Game Over\n");
+	}
 }
 
 
