@@ -1,7 +1,7 @@
 #include "../grid.h"
-#include "time.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "../fonctions-sup.h"
 
 int equals(grid g, grid h){
