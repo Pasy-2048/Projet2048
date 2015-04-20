@@ -1,21 +1,19 @@
 # Projet2048
-Codes source 2048
-
-1): Faites des branches et bossez dedans. Arrètez de poster des fichiers à moitié mergés qui ne marchent pas à la compilation et donnent 3 milliards d'erreurs.. (Sans déconner j'ai bien cru que vous aviez pété grid.c...)
-2): Il faut inclure fonctions-sup.c pour compiler hidee et showee. Sinon tout marche.
-3): Puisque les prototypes ne sont pas présents dans le .h, certaines fonctions de grid.c ne peuvent pas être utilisées en dehors. Et impossible de les délocaliser; il manquerait la description de la struct grid_s.
-4): Le "erreur" c'est juste que git ne permet pas de changer la description qu'on vient de donner, même si on a pas fini. Les deux derniers commits doivent donc s'annuller l'un-l'autre.
-5): Oubliez pas git push et git pull pour mettre/prendre en ligne; juste les commits et les checkout c'est pas trop utile.. 
 
 
-/**********************************************************************************************/
-03/05 (PL)
 
-Ajout du CMakefile :
+Usage : Depuis le repertoire 2048 grace à la console:
 
-Usage : cmake .
-	make
+	- Créer un dossier build et se placer dedans (mkdir build ; cd build)
+	- Utiliser la commande cmake ..
+	- Utiliser la commande make
 
-Il faudra surement mettre grid.c sous forme de librairie par la suite...
+L'executable 2048 permet de jouer sur la console, 
+l'executable 2048G permet de jouer avec l'interface graphique SDL
 
-/**********************************************************************************************/
+
+Si SDL n'est pas installé depuis Linux, utiliser:
+
+sudo apt-get install libsdl1.2-dev libsdl-ttf2.0-dev libsdl-image1.2-dev libsdl-gfx1.2-dev
+
+
