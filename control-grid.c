@@ -14,8 +14,11 @@ int main()
     srand(time(NULL));
     grid g=new_grid();
     bool continuer=1;
-    char ordre[2];
+    char ordre;
     show_grid(g);
+    printf("Entrez Z(haut),Q(gauche),S(bas),D(droite) pour controler\n");
+    printf("Entrez T pour terminer automatiquement le jeu\n");
+
     while(!game_over(g) && continuer==1){
       fgets(ordre, 2, stdin);
       switch(ordre[0]){
