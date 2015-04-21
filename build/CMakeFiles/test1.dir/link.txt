@@ -1,1 +1,0 @@
-/usr/bin/cc  -std=c99 -g -Wall -Werror    CMakeFiles/test1.dir/test/test.c.o CMakeFiles/test1.dir/grid.c.o CMakeFiles/test1.dir/fonctions-sup.c.o  -o test1 -rdynamic 

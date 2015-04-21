@@ -1,2 +1,0 @@
-/usr/bin/ar cr libgrid.a  CMakeFiles/grid.dir/grid.c.o CMakeFiles/grid.dir/fonctions-sup.c.o
-/usr/bin/ranlib libgrid.a

@@ -1,1 +1,0 @@
-/usr/bin/cc  -std=c99 -g -Wall -Werror    CMakeFiles/FastStrat.dir/hidee-alt.c.o CMakeFiles/FastStrat.dir/grid.c.o CMakeFiles/FastStrat.dir/fonctions-sup.c.o  -o FastStrat -rdynamic 

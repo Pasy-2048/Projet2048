@@ -1,1 +1,0 @@
-/usr/bin/cc  -std=c99 -g -Wall -Werror    CMakeFiles/FastStratShow.dir/showee-alt.c.o CMakeFiles/FastStratShow.dir/grid.c.o CMakeFiles/FastStratShow.dir/fonctions-sup.c.o  -o FastStratShow -rdynamic 

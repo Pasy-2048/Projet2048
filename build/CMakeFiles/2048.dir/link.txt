@@ -1,1 +1,0 @@
-/usr/bin/cc  -std=c99 -g -Wall -Werror    CMakeFiles/2048.dir/control-grid.c.o CMakeFiles/2048.dir/grid.c.o CMakeFiles/2048.dir/fonctions-sup.c.o  -o 2048 -rdynamic 
