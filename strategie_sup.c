@@ -65,38 +65,39 @@ long unsigned int krakat(grid g){
 int min(int a, int b){
 	return (a<b)?a:b;}
 
-long unsigned int heuristique(gridP e){
-	retour* r=maxfuses(e.grille);
-	long int retour=25*(e.nbFT+(r->hMax))-e.nbFT*(9*krakat(e.grille)+4*beurb(e.grille));
+long unsigned int heuristique(gridP *e){
+	retour* r=maxfuses(e->grille);
+	long int retour=25*(e->nbFT+(r->hMax))-(9*krakat(e->grille)+4*beurb(e->grille));
 	free(r);
 	return retour;
 }
 
-retour* best(gridP e,int depth){
+retour* best(gridP *e,int depth){
 	retour* ret=(retour*)malloc(sizeof(retour));
 	ret->hMax=0;
-	if(depth==0||game_over(e.grille)){
+	if(depth==0||game_over(e->grille)){
 		ret->hMax=heuristique(e);
 		return ret;
 	}
 	dir dirTab[4]={UP,DOWN,RIGHT,LEFT};
 	int i;
 	grid h=new_grid();
-	gridP f;
-	f.grille=h;
-	f.nbFT=e.nbFT-1;
+	gridP *f=malloc(sizeof(gridP));
+	f->grille=h;
+	f->nbFT=e->nbFT-1;
 	for(i=0;i<4;i++){
-		copy_grid(e.grille,f.grille);
-		f.nbFT=e.nbFT;
-		if(can_move(f.grille,dirTab[i])){
-			f.nbFT+=nbfuses(f.grille,dirTab[i]);
-			do_move(f.grille,dirTab[i]);
+		copy_grid(e->grille,f->grille);
+		f->nbFT=e->nbFT;
+		if(can_move(f->grille,dirTab[i])){
+			f->nbFT+=nbfuses(f->grille,dirTab[i]);
+			do_move(f->grille,dirTab[i]);
 			retour* rTemp=best(f,depth-1);
 			if(rTemp->hMax>=ret->hMax){
 				ret->direction=dirTab[i];
 				ret->hMax=rTemp->hMax;}
 			free(rTemp);}}
 	delete_grid(h);
+	free(f);
 	ret->hMax=(ret->hMax)*0.5+heuristique(e);
 	return ret;
 }

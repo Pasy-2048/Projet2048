@@ -1,0 +1,9 @@
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/2048.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/2048G.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/A1_baltus_lejeune_richard_martin_slow.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/EfficientStrat.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/FastStrat.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/FastStratShow.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/grid.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/test1.dir
+/net/cremi/slejeune/projetfinal/Projet2048/build/CMakeFiles/test2.dir

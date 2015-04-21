@@ -15,8 +15,8 @@ retour* maxfuses(grid g);
 
 long unsigned int krakat(grid g);
 
-long unsigned int heuristique(gridP e);
+long unsigned int heuristique(gridP *e);
 
-retour* best(gridP e,int depth);
+retour* best(gridP *e,int depth);
 
 int min(int a, int b);

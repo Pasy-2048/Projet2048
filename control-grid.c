@@ -20,8 +20,8 @@ int main()
     printf("Entrez T pour terminer automatiquement le jeu\n");
 
     while(!game_over(g) && continuer==1){
-      fgets(ordre, 2, stdin);
-      switch(ordre[0]){
+      ordre = fgetc(stdin);
+      switch(ordre){
       case 'L':
       case 'l':
          play(g,LEFT);

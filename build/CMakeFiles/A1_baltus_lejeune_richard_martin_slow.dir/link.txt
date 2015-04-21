@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC -std=c99 -g -Wall -Werror   -shared -Wl,-soname,libA1_baltus_lejeune_richard_martin_slow.so -o libA1_baltus_lejeune_richard_martin_slow.so CMakeFiles/A1_baltus_lejeune_richard_martin_slow.dir/grid.c.o CMakeFiles/A1_baltus_lejeune_richard_martin_slow.dir/strategy.c.o 

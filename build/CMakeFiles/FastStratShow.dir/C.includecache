@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/net/cremi/slejeune/projetfinal/Projet2048/fonctions-sup.h
+grid.h
+/net/cremi/slejeune/projetfinal/Projet2048/grid.h
+
+/net/cremi/slejeune/projetfinal/Projet2048/grid.h
+stdbool.h
+-
+
+/net/cremi/slejeune/projetfinal/Projet2048/showee-alt.c
+fonctions-sup.h
+/net/cremi/slejeune/projetfinal/Projet2048/fonctions-sup.h
+stdio.h
+-
+stdlib.h
+-
+time.h
+-
+

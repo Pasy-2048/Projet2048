@@ -18,4 +18,6 @@ int main(void){srand(time(NULL));grid g=new_grid();
     if(j!=0){if(j>=2){do_turn(g,UP);}
       else if(i==4){do_turn(g,DOWN);}}}
 	  play(g,UP);
+	show_grid(g);
+printf("%ld\n",grid_score(g));
   delete_grid(g);return 0;}

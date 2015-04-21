@@ -12,6 +12,12 @@ add_executable(2048 control-grid.c grid.c fonctions-sup.c)
 
 add_executable(2048G grid.c graphical-grid.c fonctions-sup.c)
 
+add_executable(FastStrat hidee-alt.c grid.c fonctions-sup.c)
+
+add_executable(FastStratShow showee-alt.c grid.c fonctions-sup.c)
+
+add_executable(EfficientStrat amorceSsup.c strategie_sup.c grid.c fonctions-sup.c)
+
 INCLUDE(FindPkgConfig)
 
 PKG_SEARCH_MODULE(SDL REQUIRED sdl)

@@ -1,0 +1,1 @@
+/usr/bin/cc  -std=c99 -g -Wall -Werror    CMakeFiles/EfficientStrat.dir/amorceSsup.c.o CMakeFiles/EfficientStrat.dir/strategie_sup.c.o CMakeFiles/EfficientStrat.dir/grid.c.o CMakeFiles/EfficientStrat.dir/fonctions-sup.c.o  -o EfficientStrat -rdynamic 
