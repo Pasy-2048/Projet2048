@@ -17,27 +17,31 @@ int main()
     char ordre;
     show_grid(g);
     printf("Entrez Z(haut),Q(gauche),S(bas),D(droite) pour controler\n");
-    printf("Entrez T pour terminer automatiquement le jeu\n");
+    printf("Entrez T pour terminer la partie.\n");
 
     while(!game_over(g) && continuer==1){
       ordre = fgetc(stdin);
       switch(ordre){
-      case 'L':
-      case 'l':
+      case 'Q':
+      case 'q':
          play(g,LEFT);
-         break;
-      case 'R':
-      case 'r':
-         play(g,RIGHT);
-         break;
-      case 'U':
-      case 'u':
-         play(g,UP);
          break;
       case 'D':
       case 'd':
+         play(g,RIGHT);
+         break;
+      case 'Z':
+      case 'z':
+         play(g,UP);
+         break;
+      case 'S':
+      case 's':
          play(g,DOWN);
          break;
+      case 'T':
+      case 't':
+	continuer=0;
+	break;
       }
       show_grid(g);
       printf("Score: %lu\n",grid_score(g));
